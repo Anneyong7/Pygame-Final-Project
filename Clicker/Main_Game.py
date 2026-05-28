@@ -6,12 +6,12 @@ screen = pygame.display.set_mode((400, 600))
 pygame.display.set_caption("Coin Clicker Game") 
 
 # Font sizes
-font = pygame.font.Font("Clicker/assets/PressStart2P-Regular.ttf", 16) 
-large_font = pygame.font.Font("Clicker/assets/PressStart2P-Regular.ttf", 40)
-small_font = pygame.font.Font("Clicker/assets/PressStart2P-Regular.ttf", 12) # New smaller font
-shop_font = pygame.font.Font("Clicker/assets/PressStart2P-Regular.ttf", 13)
-restart_font = pygame.font.Font("Clicker/assets/PressStart2P-Regular.ttf", 15)
-YOU_WIN_FONT = pygame.font.Font("Clicker/assets/PressStart2P-Regular.ttf", 15)
+font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 16) 
+large_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 40)
+small_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 12) # New smaller font
+shop_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 13)
+restart_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 15)
+YOU_WIN_FONT = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 15)
 
 # --- 2. COLORS (Lines 14-20) ---
 WHITE = (255, 255, 255) 
@@ -21,10 +21,10 @@ WOOD_BORDER = (93, 64, 55)
 WOOD_BASE = (161, 136, 127)   
 
 # --- 3. LOAD IMAGES (Lines 23-28) ---
-bg_image = pygame.image.load("Clicker/assets/background.png")
+bg_image = pygame.image.load("../Clicker/assets/background.png")
 bg_image = pygame.transform.scale(bg_image, (400, 600))
 
-coin_image = pygame.image.load("Clicker/assets/coin.png")
+coin_image = pygame.image.load("../Clicker/assets/coin.png")
 coin_image = pygame.transform.scale(coin_image, (200, 120))
 coin_rect = coin_image.get_rect(center=(200, 200)) 
 
@@ -34,9 +34,9 @@ shop2_rect = pygame.Rect(100, 400, 200, 60)
 restart_rect = pygame.Rect(100, 400, 200, 60) 
 
 # --- 5. AUDIO SETUP (Lines 36-40) ---
-click_sound = pygame.mixer.Sound("Clicker/assets/ClickSound.mp3")
-purchase_sound = pygame.mixer.Sound("Clicker/assets/PurchaseSound.mp3")
-pygame.mixer.music.load("Clicker/assets/bg_music.mp3")
+click_sound = pygame.mixer.Sound("../Clicker/assets/ClickSound.mp3")
+purchase_sound = pygame.mixer.Sound("../Clicker/assets/PurchaseSound.mp3")
+pygame.mixer.music.load("../Clicker/assets/bg_music.mp3")
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1) 
 
@@ -154,6 +154,7 @@ while running:
     else:
         result_text = YOU_WIN_FONT.render("You are now a Millionaire!", True, GREEN)
         screen.blit(result_text, (5, 200))
+        
         
         pygame.draw.rect(screen, WOOD_BORDER, restart_rect) 
         pygame.draw.rect(screen, WOOD_BASE, restart_rect.inflate(-8, -8))
