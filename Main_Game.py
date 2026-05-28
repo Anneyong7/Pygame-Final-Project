@@ -9,15 +9,15 @@ pygame.display.set_caption("Coin Clicker Game")
 font = pygame.font.Font("assets/PressStart2P-Regular.ttf", 16) 
 large_font = pygame.font.Font("assets/PressStart2P-Regular.ttf", 40)
 small_font = pygame.font.Font("assets/PressStart2P-Regular.ttf", 12) # New smaller font
+shop_font = pygame.font.Font("assets/PressStart2P-Regular.ttf", 13)
+restart_font = pygame.font.Font("assets/PressStart2P-Regular.ttf", 15)
 
 # --- 2. COLORS (Lines 14-20) ---
-PEACH = (255, 218, 185) 
 WHITE = (255, 255, 255) 
 BLACK = (0, 0, 0) 
 GREEN = (46, 139, 87) 
 WOOD_BORDER = (93, 64, 55)   
-WOOD_BASE = (161, 136, 127)  
-TEXT_CREAM = (255, 236, 179) 
+WOOD_BASE = (161, 136, 127)   
 
 # --- 3. LOAD IMAGES (Lines 23-28) ---
 bg_image = pygame.image.load("assets/background.png")
@@ -97,11 +97,10 @@ while running:
 
     # --- 10. GAME LOGIC ---
     if game_state == "PLAYING":
-        if coins >= 1000000:
+        if coins >= 10:
             game_state = "WON"
 
     # --- 11. DRAWING BACKGROUND ---
-    screen.fill(PEACH) 
     screen.blit(bg_image, (0, 0)) # Draws exactly at top-left corner now
 
     # --- 12. DRAWING ACTIVE GAME ---
@@ -140,13 +139,13 @@ while running:
         screen.blit(auto_stat, auto_rect)
 
         # Shop Text
-        shop1_text = font.render("2x Click", True, TEXT_CREAM)
-        shop1_cost_text = font.render(f"Cost: {multiplier_cost}", True, TEXT_CREAM)
+        shop1_text = shop_font.render("2x Click", True, WHITE)
+        shop1_cost_text = shop_font.render(f"Cost: {multiplier_cost}", True, WHITE)
         screen.blit(shop1_text, (shop1_rect.x + 50, shop1_rect.y + 10))
         screen.blit(shop1_cost_text, (shop1_rect.x + 50, shop1_rect.y + 35))
         
-        shop2_text = font.render("+2 Auto/sec", True, TEXT_CREAM)
-        shop2_cost_text = font.render(f"Cost: {auto_cost}", True, TEXT_CREAM)
+        shop2_text = shop_font.render("+2 Auto/sec", True, WHITE)
+        shop2_cost_text = shop_font.render(f"Cost: {auto_cost}", True, WHITE)
         screen.blit(shop2_text, (shop2_rect.x + 35, shop2_rect.y + 10))
         screen.blit(shop2_cost_text, (shop2_rect.x + 35, shop2_rect.y + 35))
 
@@ -162,8 +161,8 @@ while running:
         pygame.draw.circle(screen, WOOD_BORDER, (restart_rect.left + 12, restart_rect.bottom - 12), 3)
         pygame.draw.circle(screen, WOOD_BORDER, (restart_rect.right - 12, restart_rect.bottom - 12), 3)
 
-        restart_text = font.render("Restart Game", True, TEXT_CREAM)
-        screen.blit(restart_text, (restart_rect.x + 30, restart_rect.y + 20))
+        restart_text = restart_font.render("Restart Game", True, WHITE)
+        screen.blit(restart_text, (restart_rect.x + 13, restart_rect.y + 24))
 
     # --- 14. UPDATE DISPLAY ---
     pygame.display.flip() 
