@@ -1,4 +1,3 @@
-
 import pygame
 import random
 import sys
@@ -75,14 +74,14 @@ def load_sound(filename):
 # Load your audio files here. Ensure they exist in the folder!
 # Music (Loops -1)
 try:
-    pygame.mixer.music.load("background.mp3") 
+    pygame.mixer.music.load("../Pygame-Final-Project/Spelling Bee Game/asset/background.mp3") 
 except:
-    print("Note: 'background.mp3' not found for music.")
+    print("Note: 'Pygame-Final-Project/Spelling Bee Game/asset/background.mp3' not found for music.")
 
 # SFX
-correct_sound = load_sound("correct.wav")
-wrong_sound = load_sound("wrong.wav")
-game_over_sound = load_sound("lose.wav")
+correct_sound = load_sound("../Pygame-Final-Project/Spelling Bee Game/asset/winnersound.wav")
+wrong_sound = load_sound("../Pygame-Final-Project/Spelling Bee Game/asset/wrong.wav")
+game_over_sound = load_sound("../Pygame-Final-Project/Spelling Bee Game/asset/gameover.wav")
 
 # --- HELPER FUNCTIONS ---
 def draw_text(text, font, color, x, y, center=False):
@@ -253,11 +252,11 @@ while running:
         if score >= 10:
             game_state = "gameover"
             pygame.mixer.music.stop() # Stop music
-            if game_over_sound: game_over_sound.play()
+            if correct_sound: correct_sound.play()
 
         if lives <= 0 or time_left <= 0:
             game_state = "gameover"
-            pygame.mixer.music.stop()
+            pygame.mixer.music.stop() # Stop music
             if game_over_sound: game_over_sound.play()
 
     # --- GAME OVER STATE ---
