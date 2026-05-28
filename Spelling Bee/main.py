@@ -74,9 +74,10 @@ def load_sound(filename):
 
 # Load your audio files here. Ensure they exist in the folder!
 # Music (Loops -1)
-pygame.mixer.music.load("../Clicker/assets/bg_music.mp3")
-pygame.mixer.music.set_volume(0.3)
-pygame.mixer.music.play(-1) 
+try:
+    pygame.mixer.music.load("background.mp3") 
+except:
+    print("Note: 'background.mp3' not found for music.")
 
 # SFX
 correct_sound = load_sound("correct.wav")

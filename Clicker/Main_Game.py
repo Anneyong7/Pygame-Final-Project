@@ -1,4 +1,5 @@
 import pygame
+
 # --- 1. SETUP (Lines 3-11) ---
 pygame.init() 
 pygame.mixer.init() 
@@ -6,9 +7,9 @@ screen = pygame.display.set_mode((400, 600))
 pygame.display.set_caption("Coin Clicker Game") 
 
 # Font sizes
-font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 16) 
-large_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 40)
-small_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 12) # New smaller font
+font = pygame.font.Font("../Clicker/Assets/PressStart2P-Regular.ttf", 16) 
+large_font = pygame.font.Font("../Clicker/Assets/PressStart2P-Regular.ttf", 40)
+small_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 12) 
 shop_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 13)
 restart_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 15)
 YOU_WIN_FONT = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 15)
@@ -28,10 +29,11 @@ coin_image = pygame.image.load("../Clicker/assets/coin.png")
 coin_image = pygame.transform.scale(coin_image, (200, 120))
 coin_rect = coin_image.get_rect(center=(200, 200)) 
 
-# --- 4. BUTTON HITBOXES (Lines 31-33) ---
+# --- 4. BUTTON HITBOXES (Lines 31-34) ---
 shop1_rect = pygame.Rect(100, 320, 200, 60) 
 shop2_rect = pygame.Rect(100, 400, 200, 60) 
-restart_rect = pygame.Rect(100, 400, 200, 60) 
+restart_rect = pygame.Rect(100, 380, 200, 60) 
+win_exit_rect = pygame.Rect(100, 460, 200, 60) # New exit button layout for the win screen
 
 # --- 5. AUDIO SETUP (Lines 36-40) ---
 click_sound = pygame.mixer.Sound("../Clicker/assets/ClickSound.mp3")
@@ -88,6 +90,7 @@ while running:
                         auto_cost += 50 
             
             else:
+                # Inside the Win Screen options
                 if restart_rect.collidepoint(mouse_pos):
                     game_state = "PLAYING"
                     coins = 0
@@ -95,14 +98,16 @@ while running:
                     auto_clickers = 0
                     multiplier_cost = 100
                     auto_cost = 50
+                elif win_exit_rect.collidepoint(mouse_pos): # Checks if Exit is clicked
+                    running = False
 
     # --- 10. GAME LOGIC ---
     if game_state == "PLAYING":
-        if coins >= 10:
+        if coins >= 1000000:
             game_state = "WON"
 
     # --- 11. DRAWING BACKGROUND ---
-    screen.blit(bg_image, (0, 0)) # Draws exactly at top-left corner now
+    screen.blit(bg_image, (0, 0)) 
 
     # --- 12. DRAWING ACTIVE GAME ---
     if game_state == "PLAYING":
@@ -124,13 +129,11 @@ while running:
         pygame.draw.circle(screen, WOOD_BORDER, (shop2_rect.left + 12, shop2_rect.bottom - 12), 3)
         pygame.draw.circle(screen, WOOD_BORDER, (shop2_rect.right - 12, shop2_rect.bottom - 12), 3)
 
-        # --- Draw Stats Text (Updated) ---
-        # Large score text centered at the top
+        # --- Draw Stats Text ---
         score_text = large_font.render(f"{coins}", True, WHITE)
         score_rect = score_text.get_rect(center=(200, 50))
         screen.blit(score_text, score_rect)
         
-        # Small stats text centered below the main score
         click_stat = small_font.render(f"{click_value} per click", True, WHITE)
         click_rect = click_stat.get_rect(center=(200, 85))
         screen.blit(click_stat, click_rect)
@@ -152,10 +155,13 @@ while running:
 
     # --- 13. DRAWING GAME OVER ---
     else:
-        result_text = YOU_WIN_FONT.render("You are now a Millionaire!", True, GREEN)
+        # Title text drop shadow effect
+        result_text = YOU_WIN_FONT.render("You are now a Millionaire!", True, BLACK)
         screen.blit(result_text, (5, 200))
+        result_text = YOU_WIN_FONT.render("You are now a Millionaire!", True, WHITE)
+        screen.blit(result_text, (7, 200))
         
-        
+        # --- Draw Rustic Restart Button ---
         pygame.draw.rect(screen, WOOD_BORDER, restart_rect) 
         pygame.draw.rect(screen, WOOD_BASE, restart_rect.inflate(-8, -8))
         pygame.draw.circle(screen, WOOD_BORDER, (restart_rect.left + 12, restart_rect.top + 12), 3)
@@ -164,7 +170,20 @@ while running:
         pygame.draw.circle(screen, WOOD_BORDER, (restart_rect.right - 12, restart_rect.bottom - 12), 3)
 
         restart_text = restart_font.render("Restart Game", True, WHITE)
-        screen.blit(restart_text, (restart_rect.x + 13, restart_rect.y + 24))
+        restart_rect_text = restart_text.get_rect(center=restart_rect.center)
+        screen.blit(restart_text, restart_rect_text)
+
+        # --- Draw Rustic Exit Button ---
+        pygame.draw.rect(screen, WOOD_BORDER, win_exit_rect) 
+        pygame.draw.rect(screen, WOOD_BASE, win_exit_rect.inflate(-8, -8))
+        pygame.draw.circle(screen, WOOD_BORDER, (win_exit_rect.left + 12, win_exit_rect.top + 12), 3)
+        pygame.draw.circle(screen, WOOD_BORDER, (win_exit_rect.right - 12, win_exit_rect.top + 12), 3)
+        pygame.draw.circle(screen, WOOD_BORDER, (win_exit_rect.left + 12, win_exit_rect.bottom - 12), 3)
+        pygame.draw.circle(screen, WOOD_BORDER, (win_exit_rect.right - 12, win_exit_rect.bottom - 12), 3)
+
+        exit_text = restart_font.render("Exit Game", True, WHITE)
+        exit_rect_text = exit_text.get_rect(center=win_exit_rect.center)
+        screen.blit(exit_text, exit_rect_text)
 
     # --- 14. UPDATE DISPLAY ---
     pygame.display.flip() 
