@@ -1,6 +1,6 @@
 import pygame
 
-# --- 1. SETUP (Lines 3-11) ---
+# --- 1. SETUP (Lines 3-15) ---
 pygame.init() 
 pygame.mixer.init() 
 screen = pygame.display.set_mode((400, 600)) 
@@ -14,14 +14,14 @@ shop_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 13)
 restart_font = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 15)
 YOU_WIN_FONT = pygame.font.Font("../Clicker/assets/PressStart2P-Regular.ttf", 15)
 
-# --- 2. COLORS (Lines 14-20) ---
+# --- 2. COLORS (Lines 18-22) ---
 WHITE = (255, 255, 255) 
 BLACK = (0, 0, 0) 
 GREEN = (46, 139, 87) 
 WOOD_BORDER = (93, 64, 55)   
 WOOD_BASE = (161, 136, 127)   
 
-# --- 3. LOAD IMAGES (Lines 23-28) ---
+# --- 3. LOAD IMAGES (Lines 24-30) ---
 bg_image = pygame.image.load("../Clicker/assets/background.png")
 bg_image = pygame.transform.scale(bg_image, (400, 600))
 
@@ -29,20 +29,20 @@ coin_image = pygame.image.load("../Clicker/assets/coin.png")
 coin_image = pygame.transform.scale(coin_image, (200, 120))
 coin_rect = coin_image.get_rect(center=(200, 200)) 
 
-# --- 4. BUTTON HITBOXES (Lines 31-34) ---
+# --- 4. BUTTON HITBOXES (Lines 32-36) ---
 shop1_rect = pygame.Rect(100, 320, 200, 60) 
 shop2_rect = pygame.Rect(100, 400, 200, 60) 
 restart_rect = pygame.Rect(100, 380, 200, 60) 
 win_exit_rect = pygame.Rect(100, 460, 200, 60) # New exit button layout for the win screen
 
-# --- 5. AUDIO SETUP (Lines 36-40) ---
+# --- 5. AUDIO SETUP (Lines 39-43) ---
 click_sound = pygame.mixer.Sound("../Clicker/assets/ClickSound.mp3")
 purchase_sound = pygame.mixer.Sound("../Clicker/assets/PurchaseSound.mp3")
 pygame.mixer.music.load("../Clicker/assets/bg_music.mp3")
 pygame.mixer.music.set_volume(0.3)
 pygame.mixer.music.play(-1) 
 
-# --- 6. GAME VARIABLES (Lines 43-48) ---
+# --- 6. GAME VARIABLES (Lines 46-51) ---
 coins = 0 
 click_value = 1 
 auto_clickers = 0 
@@ -50,7 +50,7 @@ multiplier_cost = 1
 auto_cost = 2 
 game_state = "PLAYING" 
 
-# --- 7. AUTO-CLICK TIMER (Lines 51-54) ---
+# --- 7. AUTO-CLICK TIMER (Lines 54-57) ---
 AUTO_EVENT = pygame.USEREVENT + 1 
 pygame.time.set_timer(AUTO_EVENT, 1000) 
 

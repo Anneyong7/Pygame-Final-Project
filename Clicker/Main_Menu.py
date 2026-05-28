@@ -19,7 +19,6 @@ WOOD_BASE = (161, 136, 127)
 TEXT_CREAM = (255, 236, 179) 
 
 # --- 3. LOAD BACKGROUND ---
-# Draws your custom 400x600 image directly
 bg_image = pygame.image.load("clicker/assets/background.png")
 
 # --- 4. BUTTON AREAS ---
